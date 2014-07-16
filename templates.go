@@ -37,7 +37,7 @@ var TemplateCharacters map[TemplateType]string = map[TemplateType]string{
 var PasswordTypeTemplates map[PasswordType][]string = map[PasswordType][]string{
 	PasswordTypeMaximumSecurity: {
 		"anoxxxxxxxxxxxxxxxxx",
-		"anoxxxxxxxxxxxxxxxxx",
+		"axxxxxxxxxxxxxxxxxno",
 	},
 
 	PasswordTypeLong: {
