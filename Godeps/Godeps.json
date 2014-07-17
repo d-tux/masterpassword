@@ -1,0 +1,16 @@
+{
+	"ImportPath": "github.com/deniswernert/masterpassword",
+	"GoVersion": "go1.3",
+	"Deps": [
+		{
+			"ImportPath": "code.google.com/p/go.crypto/pbkdf2",
+			"Comment": "null-213",
+			"Rev": "aa2644fe4aa50e3b38d75187b4799b1f0c9ddcef"
+		},
+		{
+			"ImportPath": "code.google.com/p/go.crypto/scrypt",
+			"Comment": "null-213",
+			"Rev": "aa2644fe4aa50e3b38d75187b4799b1f0c9ddcef"
+		}
+	]
+}
