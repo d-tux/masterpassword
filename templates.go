@@ -5,9 +5,9 @@ import (
 	"strings"
 )
 
-const Prefix string = "com.lyndir.masterpassword"
-const SaltFormat string = Prefix + "%d%s"
-const SeedFormat string = Prefix + "%d%s%d"
+const prefix string = "com.lyndir.masterpassword"
+const saltFormat string = prefix + "%d%s"
+const seedFormat string = prefix + "%d%s%d"
 
 const (
 	PasswordTypeMaximumSecurity = iota
@@ -20,9 +20,9 @@ const (
 
 type PasswordType int
 
-type TemplateType rune
+type templateType rune
 
-var TemplateCharacters map[TemplateType]string = map[TemplateType]string{
+var templateCharacters = map[templateType]string{
 	'V': "AEIOU",
 	'C': "BCDFGHJKLMNPQRSTVWXYZ",
 	'v': "aeiou",
@@ -34,7 +34,7 @@ var TemplateCharacters map[TemplateType]string = map[TemplateType]string{
 	'X': "AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789@&%?,=[]_:-+*$#!'^~;()/.",
 }
 
-var PasswordTypeTemplates map[PasswordType][]string = map[PasswordType][]string{
+var passwordTypeTemplates = map[PasswordType][]string{
 	PasswordTypeMaximumSecurity: {
 		"anoxxxxxxxxxxxxxxxxx",
 		"axxxxxxxxxxxxxxxxxno",
@@ -84,17 +84,17 @@ var PasswordTypeTemplates map[PasswordType][]string = map[PasswordType][]string{
 	},
 }
 
-// CharOfTemplate returns the resulting character given a template
-func CharOfTemplate(value byte, template string) rune {
+// charOfTemplate returns the resulting character given a template.
+func charOfTemplate(value byte, template string) rune {
 	if 0 == len(template) {
 		panic(errors.New("Template is empty"))
 	}
 	return rune(template[int(value)%len(template)])
 }
 
-// CharOfClass returns the character for a given class
-func CharOfClass(value byte, class TemplateType) rune {
-	return CharOfTemplate(value, TemplateCharacters[class])
+// charOfClass returns the character for a given class
+func charOfClass(value byte, class templateType) rune {
+	return charOfTemplate(value, templateCharacters[class])
 }
 
 func (t *PasswordType) String() (s string) {

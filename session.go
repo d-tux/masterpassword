@@ -22,7 +22,7 @@ type Session struct {
 // NewSession creates a new session for given username and password
 func NewSession(name string, password string) *Session {
 	saltBuffer := bytes.NewBuffer(nil)
-	saltBuffer.WriteString(Prefix)
+	saltBuffer.WriteString(prefix)
 	binary.Write(saltBuffer, binary.BigEndian, uint32(len(name)))
 	saltBuffer.WriteString(name)
 
@@ -45,7 +45,7 @@ func (session *Session) NewSite(name string) *Site {
 func (session *Session) NewSiteWithCounter(name string, counter int) *Site {
 	hash := hmac.New(sha256.New, session.Key)
 	seedBuffer := bytes.NewBuffer(nil)
-	seedBuffer.WriteString(Prefix)
+	seedBuffer.WriteString(prefix)
 	binary.Write(seedBuffer, binary.BigEndian, uint32(len(name)))
 	seedBuffer.WriteString(name)
 	binary.Write(seedBuffer, binary.BigEndian, uint32(counter))
