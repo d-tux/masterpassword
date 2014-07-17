@@ -18,6 +18,8 @@ const (
 	PasswordTypePIN
 )
 
+// PasswordType is the type of password to generate.
+// The available types are PIN, Short, Basic, Medium, Long and Maximum Security.
 type PasswordType int
 
 type templateType rune
@@ -97,6 +99,8 @@ func charOfClass(value byte, class templateType) rune {
 	return charOfTemplate(value, templateCharacters[class])
 }
 
+// String implements the Value interface for PasswordType and converts the enum value to
+// a human readable string value
 func (t *PasswordType) String() (s string) {
 	switch *t {
 	case PasswordTypeBasic:
@@ -116,6 +120,9 @@ func (t *PasswordType) String() (s string) {
 	return
 }
 
+// Set implements the Value interface for PasswordType and converts from a string value
+// to an enum value. Shortcuts are supported, and the check is case insensitive.
+// An error is returned when resolving fails.
 func (t *PasswordType) Set(value string) (err error) {
 	switch strings.ToLower(value) {
 	default:

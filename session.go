@@ -13,13 +13,15 @@ const r int = 8
 const p int = 2
 const dkLen int = 64
 
-// Session is an encryption session
+// Session is an encryption session and holds the master key, as well as the user name.
+// Note that the password is not stored.
 type Session struct {
 	Key  []byte
 	Name string
 }
 
-// NewSession creates a new session for given username and password
+// NewSession creates a new session for given username and password.
+// This involves deriving the master key, which can be a little time consuming.
 func NewSession(name string, password string) *Session {
 	saltBuffer := bytes.NewBuffer(nil)
 	saltBuffer.WriteString(prefix)
@@ -42,6 +44,7 @@ func (session *Session) NewSite(name string) *Site {
 	return session.NewSiteWithCounter(name, 1)
 }
 
+// NewSiteWithCounter initializes a new site in this session, with a custom counter value.
 func (session *Session) NewSiteWithCounter(name string, counter int) *Site {
 	hash := hmac.New(sha256.New, session.Key)
 	seedBuffer := bytes.NewBuffer(nil)
